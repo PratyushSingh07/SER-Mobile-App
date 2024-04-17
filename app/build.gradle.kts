@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
+    id("kotlin-android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -42,6 +45,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+    kapt {
+        correctErrorTypes = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -66,4 +72,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Compose Chart
+    implementation(libs.charty)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
 }

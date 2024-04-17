@@ -1,5 +1,8 @@
 [versions]
 agp = "8.3.1"
+charty = "2.0.0-alpha01"
+hiltAndroid = "2.46.1"
+hiltCompiler = "2.46.1"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -10,9 +13,14 @@ activityCompose = "1.8.2"
 composeBom = "2023.08.00"
 appcompat = "1.6.1"
 material = "1.11.0"
+hilt = "2.51"
+ksp = "1.9.22-1.0.18"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+charty = { module = "com.himanshoe:charty", version.ref = "charty" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -33,4 +41,5 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
