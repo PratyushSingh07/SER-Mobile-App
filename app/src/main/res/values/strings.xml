@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SER</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="it_s_a_bit_emotionless_in_here_tap_to_add_some_drama">It\'s a bit emotionless in here... Tap to add some drama!</string>
 </resources>
