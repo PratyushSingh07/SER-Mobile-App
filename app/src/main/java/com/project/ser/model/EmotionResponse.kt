@@ -1,5 +1,6 @@
 package com.project.ser.model
 
 data class EmotionResponse(
-    val emotion: List<Int>
+    val emo: String,
+    val prob: List<Int>
 )

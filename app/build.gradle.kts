@@ -74,7 +74,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Compose Chart
-    implementation(libs.charty)
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m2)
+    implementation(libs.vico.compose.m3)
+    implementation(libs.vico.core)
+    implementation(libs.vico.views)
 
     // Hilt
     implementation(libs.hilt.android)

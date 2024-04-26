@@ -8,8 +8,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,13 +22,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
+import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottomAxis
+import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStartAxis
+import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesianLayer
+import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
+import com.patrykandpatrick.vico.core.cartesian.data.columnSeries
 import com.project.design.component.AppTopBar
-import com.project.design.component.EmptyView
 import com.project.ser.R
-import com.project.ser.model.EmotionResponse
 
 @Composable
-fun HomeScreen(onFabClicked: (FabType) -> Unit, emotionsResponseList: List<EmotionResponse>) {
+fun HomeScreen(
+    onFabClicked: (FabType) -> Unit,
+    emotions: List<String>,
+    probDistributions: List<List<Int>>
+) {
     var fabButtonState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
 
     Scaffold(
@@ -55,20 +69,40 @@ fun HomeScreen(onFabClicked: (FabType) -> Unit, emotionsResponseList: List<Emoti
                 .background(Color.White)
                 .padding(contentPadding)
         ) {
-            if (emotionsResponseList.isEmpty()) {
-                EmptyView(
-                    icon = R.drawable.face,
-                    text = R.string.it_s_a_bit_emotionless_in_here_tap_to_add_some_drama
-                )
-            } else {
-
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                itemsIndexed(probDistributions, key = { index, _ -> emotions[index] }) { index, probDistribution ->
+                    Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+                        Text(text = emotions[index])
+                        CartesianChart(probDistribution = probDistribution)
+                    }
+                }
             }
         }
     }
 }
 
-@Preview
 @Composable
-private fun HomeScreenPreview() {
-    HomeScreen({}, emptyList())
+fun CartesianChart(probDistribution: List<Int>) {
+    if (probDistribution.isNotEmpty()) {
+        val modelProducer = remember { CartesianChartModelProducer.build() }
+        LaunchedEffect(probDistribution) {
+            modelProducer.tryRunTransaction {
+                columnSeries {
+                    series(
+                        y = probDistribution
+                    )
+                }
+            }
+        }
+        CartesianChartHost(
+            rememberCartesianChart(
+                rememberColumnCartesianLayer(),
+                startAxis = rememberStartAxis(),
+                bottomAxis = rememberBottomAxis(),
+            ),
+            modelProducer,
+        )
+    } else {
+        Text(text = "No data available")
+    }
 }

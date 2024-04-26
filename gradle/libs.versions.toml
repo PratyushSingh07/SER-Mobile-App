@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.1"
-charty = "2.0.0-alpha01"
+vico = "2.0.0-alpha.17"
 converterGson = "2.9.0"
 hiltAndroid = "2.46.1"
 hiltCompiler = "2.46.1"
@@ -21,7 +21,19 @@ retrofit = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-charty = { module = "com.himanshoe:charty", version.ref = "charty" }
+vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
+
+# For `compose`. Creates a `ChartStyle` based on an M2 Material Theme.
+vico-compose-m2 = { group = "com.patrykandpatrick.vico", name = "compose-m2", version.ref = "vico" }
+
+# For `compose`. Creates a `ChartStyle` based on an M3 Material Theme.
+vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+
+# Houses the core logic for charts and other elements. Included in all other modules.
+vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico" }
+
+# For the view system.
+vico-views = { group = "com.patrykandpatrick.vico", name = "views", version.ref = "vico" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }

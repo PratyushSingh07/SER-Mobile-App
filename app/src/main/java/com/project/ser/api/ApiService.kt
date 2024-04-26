@@ -1,5 +1,6 @@
 package com.project.ser.api
 
+import com.google.gson.GsonBuilder
 import com.project.ser.model.EmotionResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -16,13 +17,18 @@ interface ApiService {
 }
 
 object RetrofitClient {
-    private const val BASE_URL = "http://192.168.39.64:5000/"
 
-    val instance: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+    var gson = GsonBuilder()
+        .setLenient()
+        .create()
+
+    val retrofit = Retrofit.Builder()
+    .baseUrl("http://192.168.134.64:5000/")
+    .addConverterFactory(GsonConverterFactory.create(gson))
+    .build()
+
+    val apiService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
+
 }
